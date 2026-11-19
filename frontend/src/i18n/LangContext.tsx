@@ -33,8 +33,11 @@ export function LangProvider({ lang, children }: { lang: Lang; children: ReactNo
   return <LangCtx.Provider value={value}>{children}</LangCtx.Provider>;
 }
 
+/** Language used when the visitor has not chosen one yet */
+export const DEFAULT_LANG: Lang = 'en';
+
 export const defaultLang = (): Lang => {
   const saved = localStorage.getItem('pt_lang');
   if (saved === 'az' || saved === 'en') return saved;
-  return navigator.language?.toLowerCase().startsWith('az') ? 'az' : 'en';
+  return DEFAULT_LANG;
 };
