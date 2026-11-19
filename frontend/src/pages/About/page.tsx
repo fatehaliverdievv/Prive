@@ -104,11 +104,10 @@ export default function About() {
   const site = useSettings();
   const reduce = useReducedMotion();
   /* i18n açarı yoxdursa ingiliscə mətn göstərilir */
-  const tr = (key: string, fb: string) => {
-    const v = t(key);
-    return !v || v === key ? fb : v;
-  };
-
+const tr = (key: string, fb: string) => {
+  const v = t(key as Parameters<typeof t>[0]);
+  return !v || v === key ? fb : v;
+};
   /* ---------- Şəkil: scroll parallax (yalnız şəklin içində) ---------- */
   const mediaRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: mediaRef, offset: ['start end', 'end start'] });
