@@ -1,0 +1,47 @@
+@use '../styles/vars' as *;
+
+.hdr {
+  position: fixed; inset: 14px $pad auto $pad; z-index: 900; height: 58px; padding: 0 22px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  background: rgba($paper, 0.78); backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid rgba($ink, 0.08); border-radius: 999px;
+  transition: transform 0.6s $ease-out;
+  &.is-hidden { transform: translateY(-90px); }
+
+  &__logo { display: inline-flex; align-items: center; img { height: 40px; width: auto; display: block; } }
+  &__nav { display: flex; align-items: center; gap: 30px; font-size: 13px;
+    a { position: relative; padding: 6px 0; opacity: 0.8; transition: opacity 0.3s;
+      &::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 0.5s $ease-out; }
+      &:hover, &.active { opacity: 1; &::after { transform: scaleX(1); } }
+    }
+  }
+  &__drop { position: relative; padding: 14px 0;
+    ul { position: absolute; top: 100%; left: -18px; margin: 0; padding: 12px; list-style: none; min-width: 200px; background: $paper; border: 1px solid $line; border-radius: 18px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+      a { display: block; padding: 10px 14px; border-radius: 10px; &::after { display: none; } &:hover { background: rgba($ink, 0.05); } }
+    }
+  }
+  &__right { display: flex; align-items: center; gap: 14px; font-size: 13px; }
+  &__call { opacity: 0.8; &:hover { opacity: 1; } }
+  &__lang { display: flex; background: rgba($ink, 0.06); border-radius: 999px; padding: 3px;
+    button { padding: 6px 12px; border-radius: 999px; font-size: 12px; letter-spacing: 0.08em; transition: background 0.3s, color 0.3s;
+      &.on { background: $ink; color: $paper; }
+    }
+  }
+  &__burger { display: none; width: 34px; height: 34px; position: relative;
+    i { position: absolute; left: 6px; right: 6px; height: 1.5px; background: currentColor; transition: transform 0.4s $ease-out;
+      &:first-child { top: 12px; } &:last-child { top: 20px; }
+    }
+    &.on i:first-child { transform: translateY(4px) rotate(45deg); }
+    &.on i:last-child { transform: translateY(-4px) rotate(-45deg); }
+  }
+  @media (max-width: 960px) {
+    &__nav, &__call { display: none; }
+    &__burger { display: block; }
+  }
+}
+
+.mnav {
+  position: fixed; inset: 0; z-index: 800; background: $deep; color: $paper; padding: 130px $pad 40px;
+  display: flex; flex-direction: column; justify-content: center; gap: 10px;
+  a { font-size: clamp(38px, 10vw, 72px); font-weight: 300; letter-spacing: -0.02em; display: inline-block; &:hover { color: $accent; } }
+}

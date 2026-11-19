@@ -1,0 +1,11 @@
+$ink: #101418;
+$paper: #faf8f4;
+$accent: #e8553a;
+$deep: #0e2a2f;
+$line: rgba(16, 20, 24, 0.12);
+$ease: cubic-bezier(0.76, 0, 0.24, 1);
+$ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+$font: NexaText, Arial, Helvetica, sans-serif;
+$pad: clamp(18px, 3.2vw, 56px);
+
+@mixin mobile { @media (max-width: 820px) { @content; } }

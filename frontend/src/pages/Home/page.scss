@@ -1,0 +1,141 @@
+@use '../../styles/vars' as *;
+
+/* ───── Hero ───── */
+.hero {
+  position: relative; height: 100svh; min-height: 640px; overflow: hidden; color: #fff; background: $deep;
+  &__bg { position: absolute; inset: -4%; img { width: 100%; height: 100%; object-fit: cover; } }
+  &__shade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,.65) 100%); }
+  &__link { position: absolute; inset: 0; z-index: 2; }
+  &__3d { position: absolute; inset: 0; z-index: 0; pointer-events: none; @include mobile { opacity: 0.55; } }
+  &__content { position: absolute; z-index: 3; left: $pad; right: $pad; bottom: clamp(70px, 12vh, 140px); pointer-events: none; }
+  &__title { font-size: clamp(44px, 8.4vw, 150px); font-weight: 300; line-height: 0.96; letter-spacing: -0.035em; max-width: 12.5em; }
+  &__sub { margin-top: 28px; max-width: 460px; font-size: clamp(14px, 1.2vw, 17px); line-height: 1.6; opacity: 0.85; }
+  &__scroll { position: absolute; z-index: 3; right: $pad; bottom: 30px; display: flex; align-items: center; gap: 12px; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    i { width: 1px; height: 54px; background: rgba(255,255,255,.4); position: relative; overflow: hidden;
+      &::after { content: ''; position: absolute; left: 0; top: -100%; width: 1px; height: 100%; background: #fff; animation: drop 2s $ease infinite; } }
+  }
+}
+@keyframes drop { to { top: 100%; } }
+
+/* ───── Portal ───── */
+.portal {
+  position: relative; height: 320vh; background: $deep; color: #fff;
+  &__stage { position: sticky; top: 0; height: 100svh; overflow: hidden; perspective: 1500px; display: grid; place-items: center; }
+  &__ghost { position: absolute; left: 0; right: 0; top: 18%; text-align: center; font-size: 30vw; font-weight: 900; line-height: .8; letter-spacing: -.04em; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.14); pointer-events: none; }
+  &__arch { position: absolute; inset: 0; overflow: hidden; transform-origin: 50% 100%; will-change: clip-path, transform;
+    img { width: 100%; height: 100%; object-fit: cover; } }
+  &__shade { position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 100%, rgba(8,20,22,.7), transparent 60%); }
+  &__txt { position: absolute; z-index: 2; left: $pad; right: $pad; bottom: clamp(50px, 11vh, 120px); display: grid; gap: 22px; justify-items: start;
+    h2 { font-size: clamp(38px, 7vw, 124px); font-weight: 300; letter-spacing: -.035em; line-height: .98; max-width: 11em; }
+    p { font-size: clamp(14px, 1.3vw, 18px); opacity: .85; } }
+  &__hint { position: absolute; bottom: 28px; left: 0; right: 0; text-align: center; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; opacity: .7; }
+}
+
+/* ───── Showcase: 3D ring ───── */
+.show {
+  position: relative; background: $paper;
+  &__stage { position: sticky; top: 0; height: 100svh; display: grid; grid-template-columns: minmax(260px, 1fr) 2fr 56px; align-items: center; gap: 2vw; padding: 0 $pad; overflow: hidden;
+    @include mobile { grid-template-columns: 1fr; grid-template-rows: auto 1fr; padding-top: 96px; align-items: start; gap: 8px; } }
+  &__left { z-index: 2; }
+  &__title { font-size: clamp(38px, 5vw, 88px); font-weight: 300; letter-spacing: -0.03em; line-height: 1; margin: 14px 0 36px; }
+  &__meta { display: grid; gap: 22px; max-width: 340px; justify-items: start; p { line-height: 1.65; opacity: 0.75; } @include mobile { display: none; } }
+  &__num { font-size: clamp(64px, 8vw, 140px); font-weight: 900; line-height: 0.8; color: transparent; -webkit-text-stroke: 1px $ink; }
+  &__world { position: relative; height: 100%; perspective: 1700px; perspective-origin: 50% 42%; display: grid; place-items: center; }
+  &__ring { position: relative; width: 0; height: 0; transform-style: preserve-3d; will-change: transform; }
+  &__panel { position: absolute; left: 0; top: 0; aspect-ratio: 3 / 4.3; margin: calc(-50% * 0) 0 0 0; translate: -50% -50%; backface-visibility: hidden; overflow: hidden; border-radius: 6px;
+    box-shadow: 0 40px 80px -30px rgba(0,0,0,.5); transition: opacity .7s, filter .7s;
+    &.d0 { opacity: 1; } &.d1 { opacity: .6; filter: saturate(.7) blur(.6px); } &.d2 { opacity: .35; filter: saturate(.4) blur(2px); }
+    img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s $ease-out; }
+    &.d0:hover img { transform: scale(1.06); } }
+  &__poster { position: absolute; inset: auto 0 0 0; padding: 30px 16px; color: #fff; text-align: center; background: linear-gradient(0deg, rgba(0,0,0,.6), transparent);
+    strong { display: block; font-size: clamp(26px, 2.6vw, 48px); font-weight: 300; letter-spacing: 0.02em; }
+    small { display: block; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin: 6px 0 12px; opacity: .8; }
+    em { font-style: normal; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; opacity: .9; } }
+  &__floor { position: absolute; left: 50%; bottom: 9%; width: 46%; height: 8%; translate: -50% 0; background: radial-gradient(closest-side, rgba(0,0,0,.28), transparent); filter: blur(8px); pointer-events: none; }
+  &__pager { list-style: none; margin: 0; padding: 0; justify-self: end; display: grid; gap: 10px; z-index: 2;
+    @include mobile { position: absolute; right: $pad; top: 50%; transform: translateY(-50%); }
+    button { width: 40px; height: 40px; border-radius: 50%; border: 1px solid $line; font-size: 11px; transition: all .5s $ease-out; &:hover { border-color: $ink; } &.on { background: $ink; color: $paper; border-color: $ink; transform: scale(1.12); } } }
+}
+
+/* ───── Horizontal 3D gallery ───── */
+.exp {
+  position: relative; background: $deep; color: $paper;
+  &__stage { position: sticky; top: 0; height: 100svh; overflow: hidden; perspective: 1700px; display: flex; flex-direction: column; justify-content: center; gap: 4vh; }
+  &__title { padding: 0 $pad; font-size: clamp(36px, 5.4vw, 92px); font-weight: 300; letter-spacing: -.035em; line-height: 1; }
+  &__track { display: flex; gap: 4vw; width: max-content; transform-style: preserve-3d; will-change: transform; }
+  &__card { position: relative; width: 50vw; flex: none; transform-style: preserve-3d; will-change: transform; @include mobile { width: 78vw; }
+    h3 { position: absolute; left: 4%; bottom: 14%; font-size: clamp(30px, 4.4vw, 76px); font-weight: 300; letter-spacing: -.03em; line-height: 1; max-width: 8em; text-shadow: 0 6px 40px rgba(0,0,0,.45); }
+    p { position: absolute; left: 4%; bottom: 6%; font-size: 14px; opacity: .85; } }
+  &__img { aspect-ratio: 16 / 10; overflow: hidden; border-radius: 6px; box-shadow: 0 60px 90px -40px rgba(0,0,0,.7);
+    img { width: 100%; height: 100%; object-fit: cover; }
+    &::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.55), transparent 55%); } }
+  &__bar { margin: 0 $pad; height: 1px; background: rgba($paper, .2); i { display: block; height: 100%; background: $accent; transform-origin: 0 50%; } }
+}
+
+/* ───── Destination list ───── */
+.dl {
+  position: relative; padding: 140px $pad 120px; overflow: hidden; background: $paper; transition: color .6s;
+  &.is-dark { color: #fff; }
+  &__bg { position: absolute; inset: 0; z-index: 0; &::after { content: ''; position: absolute; inset: 0; background: rgba(8, 20, 22, .55); opacity: 0; transition: opacity .6s; }
+    img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.12); transition: opacity .8s, transform 1.6s $ease-out; &.on { opacity: 1; transform: scale(1); } } }
+  &.is-dark &__bg::after { opacity: 1; }
+  &__float { position: absolute; z-index: 2; left: 0; top: 0; width: clamp(180px, 17vw, 300px); aspect-ratio: 3 / 4; translate: -50% -50%; pointer-events: none; border-radius: 6px; overflow: hidden; opacity: 0; scale: .6; transition: opacity .4s, scale .6s $ease-out; box-shadow: 0 40px 80px -20px rgba(0,0,0,.55);
+    &.on { opacity: 1; scale: 1; } img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .35s; &.on { opacity: 1; } } @media (pointer: coarse) { display: none; } }
+  &__list { perspective: 1000px; }
+  &__eyebrow { position: relative; z-index: 1; text-align: center; margin-bottom: 40px; }
+  &__list { position: relative; z-index: 3; list-style: none; margin: 0; padding: 0; text-align: center;
+    li { transition: opacity .5s, filter .5s; }
+  }
+  &.is-dark &__list li:not(.on) { opacity: .35; filter: blur(1.5px); }
+  &__list a { position: relative; display: inline-flex; align-items: baseline; gap: 18px; padding: 6px 0; }
+  &__n { font-size: 12px; letter-spacing: .15em; opacity: .5; }
+  &__name { font-size: clamp(44px, 9.5vw, 170px); font-weight: 300; letter-spacing: -.035em; line-height: 1; text-transform: uppercase; transition: letter-spacing .8s $ease-out; }
+  li.on &__name { letter-spacing: .01em; }
+  &__tag { position: absolute; left: 50%; bottom: -4px; transform: translate(-50%, 12px); font-size: 11px; letter-spacing: .25em; text-transform: uppercase; opacity: 0; transition: all .5s $ease-out; white-space: nowrap; }
+  li.on &__tag { opacity: .9; transform: translate(-50%, 0); }
+  &__cta { position: relative; z-index: 1; text-align: center; margin-top: 70px; .btn { color: $ink; } }
+  &.is-dark &__cta .btn { color: #fff; }
+}
+
+/* ───── Stats ───── */
+.stats { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding-block: 120px; @include mobile { grid-template-columns: repeat(2, 1fr); }
+  &__flight { position: absolute; left: 0; right: 0; top: 6px; width: 100%; height: 96px; overflow: visible; pointer-events: none; @include mobile { display: none; } }
+  &__ghost { fill: none; stroke: $line; stroke-width: 1.5; stroke-dasharray: 3 8; vector-effect: non-scaling-stroke; }
+  &__line { fill: none; stroke: $accent; stroke-width: 2; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  &__item { position: relative; z-index: 1; border-top: 1px solid $ink; padding-top: 22px; display: grid; gap: 10px;
+    b { font-size: clamp(44px, 6vw, 100px); font-weight: 300; letter-spacing: -.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+    > span { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; opacity: .6; } } }
+
+/* ───── Hotels / News ───── */
+.hot, .nws { padding-block: 70px 90px; }
+.hot__head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 50px; flex-wrap: wrap; }
+.hot__title { font-size: clamp(44px, 7vw, 120px); font-weight: 300; letter-spacing: -.035em; line-height: 1; }
+.hot__sub { max-width: 340px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; line-height: 1.8; opacity: .6; text-align: right; @include mobile { text-align: left; } }
+.hot__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; @media (max-width: 960px) { grid-template-columns: 1fr; } }
+.hot__card { display: block; background: #fff;
+  .hot__img { aspect-ratio: 4 / 5; overflow: hidden; img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s $ease-out; } }
+  &:hover img { transform: scale(1.08); }
+  .hot__info { padding: 22px 22px 28px; display: grid; gap: 10px; h3 { font-size: 24px; font-weight: 400; } p { opacity: .65; line-height: 1.55; font-size: 14px; } }
+}
+.nws__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; @include mobile { grid-template-columns: 1fr; } }
+.nws__card { display: grid; gap: 14px;
+  .nws__img { aspect-ratio: 16 / 11; overflow: hidden; img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s $ease-out; } }
+  &:hover img { transform: scale(1.06); }
+  h3 { font-size: clamp(24px, 2.6vw, 40px); font-weight: 300; letter-spacing: -.02em; }
+  p { opacity: .6; max-width: 520px; line-height: 1.6; } }
+
+/* ───── CTA / contact ───── */
+.cta { position: relative; background: $deep; color: $paper; padding: 130px 0; overflow: hidden;
+  &__glow { position: absolute; width: 60vw; height: 60vw; right: -15vw; top: -20vw; border-radius: 50%; background: radial-gradient(circle, rgba($accent, .55), transparent 65%); filter: blur(30px); animation: float 12s ease-in-out infinite alternate; }
+  &__in { position: relative; display: grid; grid-template-columns: 1.1fr 1fr; gap: 6vw; align-items: end; @include mobile { grid-template-columns: 1fr; } }
+  &__title { font-size: clamp(40px, 6vw, 104px); font-weight: 300; letter-spacing: -.035em; line-height: 1; }
+  &__sub { margin-top: 26px; max-width: 420px; line-height: 1.7; opacity: .7; }
+  &__form { display: grid; gap: 14px;
+    input, textarea { width: 100%; background: transparent; border: 0; border-bottom: 1px solid rgba($paper, .3); padding: 16px 0; color: inherit; font: inherit; outline: none; resize: none; transition: border-color .4s; &:focus { border-color: $accent; } &::placeholder { color: rgba($paper, .5); } }
+    .btn { justify-self: start; margin-top: 14px; } }
+  &__row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  &__msg { font-size: 14px; color: #9be3b4; &.err { color: #ff9a9a; } }
+}
+@keyframes float { to { transform: translate(-6vw, 6vw) scale(1.15); } }
+
+.cta__form input.bad, .cta__form textarea.bad { border-color: #ff8a73 !important; box-shadow: 0 1px 0 #ff8a73; }

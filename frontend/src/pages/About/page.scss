@@ -1,0 +1,7 @@
+@use '../../styles/vars' as *;
+.about { padding-bottom: 140px;
+  &__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px 6vw; margin-top: 80px; align-items: start; @include mobile { grid-template-columns: 1fr; } }
+  &__lead { grid-column: 1 / -1; font-size: clamp(26px, 3.8vw, 64px); font-weight: 300; line-height: 1.2; letter-spacing: -.025em; max-width: 1200px; }
+  &__media { aspect-ratio: 4/5; overflow: hidden; img { width: 100%; height: 100%; object-fit: cover; } }
+  &__p { font-size: 18px; line-height: 1.8; opacity: .7; max-width: 460px; align-self: end; }
+}

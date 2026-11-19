@@ -1,0 +1,8 @@
+@use '../../styles/vars' as *;
+.ag { padding-bottom: 120px;
+  &__sub { margin-top: 24px; opacity: .6; max-width: 420px; line-height: 1.6; }
+  &__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; @media (max-width: 960px) { grid-template-columns: repeat(2, 1fr); } @include mobile { grid-template-columns: 1fr; } }
+  &__card { display: grid; gap: 10px; padding: 34px; border: 1px solid $line; border-radius: 6px; transition: background .5s, color .5s, transform .6s $ease-out;
+    &:hover { background: $deep; color: $paper; transform: translateY(-6px); }
+    h3 { font-size: 34px; font-weight: 300; margin-bottom: 10px; } p { opacity: .65; } a { opacity: .85; &:hover { opacity: 1; text-decoration: underline; } } }
+}

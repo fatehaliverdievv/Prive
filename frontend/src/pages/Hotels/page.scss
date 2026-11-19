@@ -1,0 +1,8 @@
+@use '../../styles/vars' as *;
+.hotels { padding-bottom: 120px;
+  &__sub { margin-top: 24px; opacity: .6; max-width: 420px; line-height: 1.6; }
+  &__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; @media (max-width: 960px) { grid-template-columns: repeat(2, 1fr); } @include mobile { grid-template-columns: 1fr; } }
+  &__card { display: block; background: #fff; overflow: hidden;
+    img { aspect-ratio: 4/5; width: 100%; object-fit: cover; transition: transform 1.4s $ease-out; } &:hover img { transform: scale(1.07); }
+    div { padding: 22px; display: grid; gap: 10px; } h3 { font-size: 24px; font-weight: 400; } p { opacity: .65; line-height: 1.55; font-size: 14px; } }
+}

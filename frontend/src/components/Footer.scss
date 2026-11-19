@@ -1,0 +1,16 @@
+@use '../styles/vars' as *;
+
+.ftr {
+  background: $deep; color: $paper; padding-top: 100px; overflow: hidden;
+  &__top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; @include mobile { grid-template-columns: 1fr 1fr; > div { grid-column: 1 / -1; } } }
+  &__addr { margin-top: 10px; font-size: 14px; opacity: .7; }
+  &__soc { display: flex; gap: 18px; margin-top: 18px; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; a { opacity: .75; transition: opacity .3s; &:hover { opacity: 1; color: $accent; } } }
+  &__logo { height: 64px; width: auto; margin-bottom: 22px; }
+  &__mail { display: block; margin-top: 24px; font-size: clamp(24px, 3.4vw, 48px); font-weight: 300; }
+  &__tel { display: block; margin-top: 8px; opacity: 0.7; }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; align-content: start; a { opacity: 0.75; transition: opacity 0.3s, padding 0.4s $ease-out; &:hover { opacity: 1; padding-left: 8px; } } }
+  &__big { display: flex; justify-content: center; perspective: 900; font-size: 16.5vw; font-weight: 900; letter-spacing: -0.04em; line-height: 0.8; white-space: nowrap; margin: 70px 0 30px;
+    span { display: inline-block; transform-origin: 50% 100%; color: transparent; -webkit-text-stroke: 1px rgba($paper, 0.25); transition: color .6s, -webkit-text-stroke-color .6s, text-shadow .6s;
+      &:hover { color: $accent; -webkit-text-stroke-color: $accent; text-shadow: 0 0 60px rgba($accent, .5); } } }
+  &__bottom { display: flex; justify-content: space-between; padding-block: 24px; font-size: 12px; opacity: 0.6; border-top: 1px solid rgba($paper, 0.12); }
+}
