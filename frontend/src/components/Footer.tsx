@@ -31,7 +31,7 @@ export default function Footer() {
         </ul>
       </div>
       <motion.div className="ftr__big" aria-hidden initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} transition={{ staggerChildren: 0.06 }}>
-        {'PEAK TOUR'.split('').map((c, i) => (
+        {'PRIVE TOUR'.split('').map((c, i) => (
           <motion.span key={i} variants={{ hidden: { rotateX: -95, y: '40%', opacity: 0 }, show: { rotateX: 0, y: 0, opacity: 1 } }}
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}>{c === ' ' ? '\u00A0' : c}</motion.span>
         ))}
