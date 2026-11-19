@@ -35,7 +35,7 @@ export const Inquiry = model('Inquiry', new Schema({
 /** Singleton with contact info, social links, stats, hero/portal images and SEO */
 export const Settings = model('Settings', new Schema({
   key: { type: String, default: 'site', unique: true },
-  phone: { type: String, default: '+994 12 000 00 00' }, email: { type: String, default: 'hello@peaktour.az' },
+  phone: { type: String, default: '+994 12 000 00 00' }, email: { type: String, default: 'hello@privedmc.az' },
   whatsapp: { type: String, default: '' }, instagram: { type: String, default: '' }, facebook: { type: String, default: '' },
   address: L(), heroImage: { type: String, default: '' }, portalImage: { type: String, default: '' }, aboutImage: { type: String, default: '' },
   stats: { countries: { type: Number, default: 24 }, hotels: { type: Number, default: 320 }, guests: { type: Number, default: 18500 }, years: { type: Number, default: 12 } },

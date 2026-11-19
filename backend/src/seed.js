@@ -49,8 +49,8 @@ const news = [
 ];
 
 const agencies = [
-  { name: 'Peak Tour Baku', city: { az: 'Bakı', en: 'Baku' }, address: { az: 'Nizami küç. 10', en: '10 Nizami St.' }, phone: '+994 12 000 00 00', email: 'baku@peaktour.az', order: 1 },
-  { name: 'Peak Tour Ganja', city: { az: 'Gəncə', en: 'Ganja' }, address: { az: 'Cavad Xan küç. 5', en: '5 Javad Khan St.' }, phone: '+994 22 000 00 00', email: 'ganja@peaktour.az', order: 2 },
+  { name: 'Privé DMC Baku', city: { az: 'Bakı', en: 'Baku' }, address: { az: 'Nizami küç. 10', en: '10 Nizami St.' }, phone: '+994 12 000 00 00', email: 'baku@privedmc.az', order: 1 },
+  { name: 'Privé DMC Ganja', city: { az: 'Gəncə', en: 'Ganja' }, address: { az: 'Cavad Xan küç. 5', en: '5 Javad Khan St.' }, phone: '+994 22 000 00 00', email: 'ganja@privedmc.az', order: 2 },
 ];
 
 const experiences = [

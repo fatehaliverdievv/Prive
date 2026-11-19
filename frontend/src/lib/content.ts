@@ -13,7 +13,7 @@ export interface Experience { _id: string; image: string; title: L10n; desc: L10
 type TextMap = Record<string, { az: string; en: string }>;
 
 export const DEFAULT_SETTINGS: SiteSettings = {
-  phone: '+994 12 000 00 00', email: 'hello@peaktour.az', whatsapp: '', instagram: '', facebook: '', address: {},
+  phone: '+994 12 000 00 00', email: 'hello@privedmc.az', whatsapp: '', instagram: '', facebook: '', address: {},
   heroImage: '/images/hero.webp', portalImage: '/images/uae.webp', aboutImage: '/images/about.webp',
   stats: { countries: 24, hotels: 320, guests: 18500, years: 12 }, seoTitle: {}, seoDescription: {},
 };

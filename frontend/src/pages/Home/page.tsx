@@ -34,7 +34,9 @@ function Hero() {
       </motion.div>
       <div className="hero__shade" />
       <Link to={to('/about')} className="hero__link" data-cursor={t('hero.cta')} aria-label={t('hero.cta')} />
-      <div className="hero__3d"><Suspense fallback={null}><Hero3D src={img(site.heroImage)} /></Suspense></div>
+      <motion.div className="hero__3d" style={{ y: bgY, scale: bgScale }}>
+        <Suspense fallback={null}><Hero3D src={img(site.heroImage)} /></Suspense>
+      </motion.div>
 
       <motion.div className="hero__content" style={{ y: textY, opacity: fade }}>
         <SplitText as="h1" text={t('hero.title')} className="hero__title" delay={delay} immediate />
@@ -68,7 +70,7 @@ function Portal() {
   return (
     <section className="portal" ref={ref}>
       <div className="portal__stage">
-        <motion.div className="portal__ghost" aria-hidden style={{ y: ghostY, z: ghostZ }}>PEAK</motion.div>
+        <motion.div className="portal__ghost" aria-hidden style={{ y: ghostY, z: ghostZ }}>PRIVÉ</motion.div>
         <motion.div className="portal__arch" style={{ clipPath: clip, rotateX: tilt }}>
           <motion.img src={img(site.portalImage)} alt="" style={{ scale: zoom }} />
           <div className="portal__shade" />
@@ -131,7 +133,7 @@ function Showcase() {
                   className={`show__panel d${Math.min(dist, 2)}`} style={{ width: w, transform: `rotateY(${idx * (360 / n)}deg) translateZ(${R}px)` }}
                   onClick={(e) => { if (idx !== i) { e.preventDefault(); go(idx); } }}>
                   <img src={img(d.image)} alt={l(d.name)} />
-                  <div className="show__poster"><strong>{l(d.name)}</strong><small>by PEAK TOUR</small><em>{l(d.tagline)}</em></div>
+                  <div className="show__poster"><strong>{l(d.name)}</strong><small>by Privé DMC</small><em>{l(d.tagline)}</em></div>
                 </Link>
               );
             })}
@@ -148,24 +150,23 @@ function Showcase() {
     </section>
   );
 }
-
-/* ───────────────────── Horizontal 3D gallery ───────────────────── */
-const CW = 50, GAP = 4;
-
-function ExpCard({ idx, n, p, item }: { idx: number; n: number; p: MotionValue<number>; item: Exp }) {
+/* ───────────────────── Full-screen gallery: each scroll step reveals the next image ───────────────────── */
+function ExpSlide({ i, n, u, item }: { i: number; n: number; u: MotionValue<number>; item: Exp }) {
   const { l } = useLang();
-  const c = idx / Math.max(1, n - 1);
-  const rotateY = useTransform(p, [c - 0.34, c, c + 0.34], [38, 0, -38]);
-  const scale = useTransform(p, [c - 0.34, c, c + 0.34], [0.8, 1, 0.8]);
-  const z = useTransform(p, [c - 0.34, c, c + 0.34], [-260, 0, -260]);
-  const imgX = useTransform(p, [c - 0.4, c + 0.4], ['-9%', '9%']);
-  const titleX = useTransform(p, [c - 0.4, c + 0.4], [26, -26]);
+  const clip = useTransform(u, [i - 1, i], ['inset(100% 0% 0% 0%)', 'inset(0% 0% 0% 0%)']);
+  const scale = useTransform(u, [i - 1, i, i + 1], [1.35, 1.06, 1]);
+  const o = useTransform(u, [i - 0.6, i - 0.15, i + 0.15, i + 0.6], [0, 1, 1, 0]);
+  const y = useTransform(u, [i - 0.6, i, i + 0.6], [80, 0, -80]);
+  const rx = useTransform(u, [i - 0.6, i, i + 0.6], [-28, 0, 28]);
   return (
-    <motion.article className="exp__card" style={{ rotateY, scale, z }}>
-      <div className="exp__img"><motion.img src={img(item.image)} alt="" style={{ x: imgX, scale: 1.2 }} /></div>
-      <motion.h3 style={{ x: titleX, z: 90 }}>{l(item.title)}</motion.h3>
-      <p>{l(item.desc)}</p>
-    </motion.article>
+    <motion.div className="exp__slide" style={{ zIndex: i + 1, clipPath: i === 0 ? undefined : clip }}>
+      <motion.img src={img(item.image)} alt="" style={{ scale }} />
+      <motion.div className="exp__txt" style={{ opacity: o, y, rotateX: rx }}>
+        <h3>{l(item.title)}</h3>
+        <p>{l(item.desc)}</p>
+      </motion.div>
+      <span className="exp__idx" aria-hidden>{String(i + 1).padStart(2, '0')}</span>
+    </motion.div>
   );
 }
 
@@ -174,18 +175,24 @@ function Experience() {
   const items = useExperiences();
   const n = items.length;
   const ref = useRef<HTMLElement>(null);
+  const [act, setAct] = useState(0);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
-  const x = useTransform(scrollYProgress, [0, 1], ['8vw', `${Math.min(0, -(n * (CW + GAP) - GAP - 100 + 8))}vw`]);
-  const bar = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const u = useTransform(scrollYProgress, [0, 1], [0, Math.max(1, n - 1)]);
+  useMotionValueEvent(u, 'change', (v) => setAct(Math.max(0, Math.min(n - 1, Math.round(v)))));
+  const go = (i: number) => {
+    const el = ref.current; if (!el) return;
+    window.scrollTo({ top: el.offsetTop + (i / Math.max(1, n - 1)) * (el.offsetHeight - window.innerHeight), behavior: 'smooth' });
+  };
   if (!n) return null;
   return (
-    <section className="exp" ref={ref} style={{ height: `${Math.max(2, n) * 85}vh` }}>
+    <section className="exp" ref={ref} style={{ height: `${Math.max(2, n) * 100}vh` }}>
       <div className="exp__stage">
+        {items.map((e, i) => <ExpSlide key={e._id} i={i} n={n} u={u} item={e} />)}
         <h2 className="exp__title">{t('exp.title')}</h2>
-        <motion.div className="exp__track" style={{ x }}>
-          {items.map((e, idx) => <ExpCard key={e._id} idx={idx} n={n} p={scrollYProgress} item={e} />)}
-        </motion.div>
-        <div className="exp__bar"><motion.i style={{ scaleX: bar }} /></div>
+        <div className="exp__count"><b>{String(act + 1).padStart(2, '0')}</b>/ {String(n).padStart(2, '0')}</div>
+        <ol className="exp__dots">
+          {items.map((e, i) => <li key={e._id}><button className={i === act ? 'on' : ''} onClick={() => go(i)} aria-label={String(i + 1)} /></li>)}
+        </ol>
       </div>
     </section>
   );
@@ -195,26 +202,20 @@ function Experience() {
 function DestList() {
   const { t, l, to } = useLang();
   const items = useDestinations().slice(0, 6);
-  const [active, setActive] = useState(-1);
-  const mx = useMotionValue(0), my = useMotionValue(0);
-  const sx = useSpring(mx, { stiffness: 150, damping: 17, mass: 0.5 }), sy = useSpring(my, { stiffness: 150, damping: 17, mass: 0.5 });
-  const vx = useVelocity(sx);
-  const rot = useSpring(useTransform(vx, [-1800, 1800], [-16, 16], { clamp: true }), { stiffness: 120, damping: 14 });
-  const move = (e: React.MouseEvent<HTMLElement>) => { const r = e.currentTarget.getBoundingClientRect(); mx.set(e.clientX - r.left); my.set(e.clientY - r.top); };
+  const [active, setActive] = useState(0); // the first destination's photo is shown by default
   return (
-    <section className={`dl ${active >= 0 ? 'is-dark' : ''}`} onMouseLeave={() => setActive(-1)} onMouseMove={move}>
+    <section className="dl">
       <div className="dl__bg">
         {items.map((d, idx) => (<img key={d._id} src={img(d.image)} alt="" className={idx === active ? 'on' : ''} />))}
       </div>
-      <motion.div className={`dl__float ${active >= 0 ? 'on' : ''}`} style={{ x: sx, y: sy, rotate: rot }} aria-hidden>
-        {items.map((d, idx) => (<img key={d._id} src={img(d.image)} alt="" className={idx === active ? 'on' : ''} />))}
-      </motion.div>
       <p className="eyebrow dl__eyebrow">{t('dest.eyebrow')}</p>
       <ul className="dl__list">
         {items.map((d, idx) => (
           <motion.li key={d._id} initial={{ opacity: 0, y: 60, rotateX: -50 }} whileInView={{ opacity: 1, y: 0, rotateX: 0 }} viewport={{ once: true, margin: '-5%' }}
             transition={{ duration: 0.9, delay: idx * 0.05, ease: [0.16, 1, 0.3, 1] }}
             className={idx === active ? 'on' : ''} onMouseEnter={() => setActive(idx)}>
+            {/* on touch screens (no hover) the name crossing the middle of the screen selects the photo */}
+            <motion.i className="dl__spy" aria-hidden viewport={{ margin: '-45% 0px -45% 0px' }} onViewportEnter={() => window.matchMedia('(pointer: coarse)').matches && setActive(idx)} />
             <Link to={to(`/destinations/${d.slug}`)} data-cursor={t('show.open')}>
               <span className="dl__n">{String(idx + 1).padStart(2, '0')}</span>
               <span className="dl__name">{l(d.name)}</span>
@@ -333,6 +334,18 @@ function NewsRow() {
 }
 
 /* ───────────────────── Contact ───────────────────── */
+function Field({
+  name, label, bad, type = 'text', maxLength,
+}: { name: string; label: string; bad?: boolean; type?: string; maxLength: number }) {
+  return (
+    <label className={`field ${bad ? 'bad' : ''}`}>
+      <input name={name} type={type} maxLength={maxLength} placeholder=" " aria-invalid={bad} />
+      <span className="field__label">{label}</span>
+      <i className="field__line" />
+    </label>
+  );
+}
+
 function Contact() {
   const { t, lang } = useLang();
   const [state, setState] = useState<'idle' | 'sending' | 'ok' | 'err'>('idle');
@@ -358,22 +371,34 @@ function Contact() {
   };
   return (
     <section className="cta">
-      <div className="cta__glow" />
+      <div className="cta__glow cta__glow--warm" />
+      <div className="cta__glow cta__glow--cool" />
+      <div className="cta__grain" />
       <div className="container cta__in">
         <div>
+          <Reveal><span className="cta__eyebrow">{lang === 'en' ? 'Contact' : 'Əlaqə'}</span></Reveal>
           <SplitText text={t('contact.title')} className="cta__title" />
           <Reveal><p className="cta__sub">{t('contact.sub')}</p></Reveal>
         </div>
         <Reveal delay={0.1}>
           <form className="cta__form" onSubmit={submit} noValidate>
             <input name="website" tabIndex={-1} autoComplete="off" aria-hidden style={{ position: 'absolute', left: '-9999px', opacity: 0 }} />
-            <input name="name" maxLength={120} placeholder={t('form.name')} aria-invalid={!!errs.name} className={errs.name ? 'bad' : ''} />
+            <Field name="name" label={t('form.name')} maxLength={120} bad={!!errs.name} />
             <div className="cta__row">
-              <input name="phone" maxLength={30} placeholder={t('form.phone')} aria-invalid={!!errs.phone} className={errs.phone ? 'bad' : ''} />
-              <input name="email" type="email" maxLength={160} placeholder={t('form.email')} aria-invalid={!!errs.email} className={errs.email ? 'bad' : ''} />
+              <Field name="phone" label={t('form.phone')} maxLength={30} bad={!!errs.phone} />
+              <Field name="email" type="email" label={t('form.email')} maxLength={160} bad={!!errs.email} />
             </div>
-            <textarea name="message" rows={3} maxLength={2000} placeholder={t('form.message')} />
-            <Magnetic><button className="btn light" disabled={state === 'sending'}>{t('form.send')}</button></Magnetic>
+            <label className="field field--area">
+              <textarea name="message" rows={3} maxLength={2000} placeholder=" " />
+              <span className="field__label">{t('form.message')}</span>
+              <i className="field__line" />
+            </label>
+            <Magnetic>
+              <button className="btn light cta__btn" disabled={state === 'sending'}>
+                <span>{t('form.send')}</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </Magnetic>
             {state === 'ok' && <p className="cta__msg">{t('form.sent')}</p>}
             {state === 'err' && <p className="cta__msg err">{msg || t('form.error')}</p>}
           </form>
@@ -382,7 +407,6 @@ function Contact() {
     </section>
   );
 }
-
 export default function Home() {
   const { l } = useLang();
   const names = useDestinations().map((d) => l(d.name));

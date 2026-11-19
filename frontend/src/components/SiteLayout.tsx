@@ -33,7 +33,7 @@ export default function SiteLayout() {
 
   useEffect(() => {
     const L = (lang === 'en' ? 'en' : 'az') as Lang;
-    document.title = site.seoTitle[L] || 'Privé by Peaktour';
+    document.title = site.seoTitle[L] || 'Privé DMC';
     const d = site.seoDescription[L];
     let m = document.querySelector('meta[name="description"]');
     if (d) { if (!m) { m = document.createElement('meta'); m.setAttribute('name', 'description'); document.head.appendChild(m); } m.setAttribute('content', d); }

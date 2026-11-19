@@ -28,10 +28,10 @@ function Shell({ me, unread, refresh }: { me: Me; unread: number; refresh: () =>
   const logout = () => { auth.clear(); nav('/admin/login', { replace: true }); };
   return (
     <div className="a-shell">
-      <header className="a-top"><button className="a-burger" onClick={() => setMenu(true)} aria-label="Menyu">☰</button><img src="/images/logo-dark.png" alt="Privé by Peaktour" /></header>
+      <header className="a-top"><button className="a-burger" onClick={() => setMenu(true)} aria-label="Menyu">☰</button><img src="/images/logo-dark.png" alt="Privé DMC" /></header>
       {menu && <div className="a-scrim" onClick={() => setMenu(false)} />}
       <aside className={`a-side ${menu ? 'open' : ''}`}>
-        <NavLink to="/admin" className="a-side__logo"><img src="/images/logo-dark.png" alt="Privé by Peaktour" /></NavLink>
+        <NavLink to="/admin" className="a-side__logo"><img src="/images/logo-dark.png" alt="Privé DMC" /></NavLink>
         <nav>
           {NAV.map((g) => (
             <div key={g.title}>

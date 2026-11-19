@@ -33,8 +33,8 @@ export const FALLBACK = {
     { _id: 'n3', slug: 'news-flights', image: '/images/news-flights.webp', date: '2026-10-05', title: { az: 'Birbaşa reyslər', en: 'Direct flights' }, excerpt: { az: 'Bakıdan yeni birbaşa reyslər əlavə olundu.', en: 'New direct flights from Baku have been added.' }, content: { az: 'Bakıdan yeni birbaşa reyslər əlavə olundu.', en: 'New direct flights from Baku have been added.' } },
   ] as NewsItem[],
   agencies: [
-    { _id: 'a1', name: 'Peak Tour Baku', city: { az: 'Bakı', en: 'Baku' }, address: { az: 'Nizami küç. 10', en: '10 Nizami St.' }, phone: '+994 12 000 00 00', email: 'baku@peaktour.az' },
-    { _id: 'a2', name: 'Peak Tour Ganja', city: { az: 'Gəncə', en: 'Ganja' }, address: { az: 'Cavad Xan küç. 5', en: '5 Javad Khan St.' }, phone: '+994 22 000 00 00', email: 'ganja@peaktour.az' },
+    { _id: 'a1', name: 'Privé DMC Baku', city: { az: 'Bakı', en: 'Baku' }, address: { az: 'Nizami küç. 10', en: '10 Nizami St.' }, phone: '+994 12 000 00 00', email: 'baku@privedmc.az' },
+    { _id: 'a2', name: 'Privé DMC Ganja', city: { az: 'Gəncə', en: 'Ganja' }, address: { az: 'Cavad Xan küç. 5', en: '5 Javad Khan St.' }, phone: '+994 22 000 00 00', email: 'ganja@privedmc.az' },
   ] as Agency[],
 };
 

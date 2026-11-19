@@ -34,7 +34,7 @@ export default function Header() {
   return (
     <>
       <header className={`hdr ${hidden && !menu ? 'is-hidden' : ''}`}>
-        <Link to={to()} className="hdr__logo" aria-label="Privé by Peaktour"><img src="/images/logo-dark.png" alt="Privé by Peaktour" /></Link>
+        <Link to={to()} className="hdr__logo" aria-label="Privé DMC"><img src="/images/logo-light.png" alt=" DMC" /></Link>
 
         <nav className="hdr__nav">
           <div className="hdr__drop" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>

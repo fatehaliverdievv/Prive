@@ -22,7 +22,7 @@ const fields: FieldDef[] = [
   { path: 'portalImage', label: 'Qapı (portal) şəkli', type: 'image' },
   { path: 'aboutImage', label: '“Şirkət haqqında” şəkli', type: 'image' },
   { path: 'h5', label: 'SEO (axtarış sistemləri)', type: 'heading' },
-  { path: 'seoTitle', label: 'Səhifə başlığı', type: 'text', bi: true, max: 70, hint: 'Brauzer tabında görünür. Boş qalsa “Privé by Peaktour”.' },
+  { path: 'seoTitle', label: 'Səhifə başlığı', type: 'text', bi: true, max: 70, hint: 'Brauzer tabında görünür. Boş qalsa “Privé DMC”.' },
   { path: 'seoDescription', label: 'Qısa təsvir', type: 'textarea', bi: true, max: 200, rows: 2 },
 ];
 

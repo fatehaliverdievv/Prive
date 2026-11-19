@@ -26,7 +26,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
   return (
     <motion.div className="pre" initial={{ clipPath: 'inset(0% 0 0% 0)' }}
       exit={{ clipPath: 'inset(0 0 100% 0)' }} transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}>
-      <h1 className="pre__logo" aria-label="Privé by Peaktour">
+      <h1 className="pre__logo" aria-label="Privé DMC">
         <img src="/images/logo-dark.png" alt="" style={{ opacity: 0.12 + p * 0.0088, clipPath: `inset(0 ${100 - p}% 0 0)` }} />
       </h1>
       <div className="pre__line">

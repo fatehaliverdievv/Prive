@@ -31,7 +31,7 @@ export default function Login() {
       <aside className="a-login__art">
         <img src="/images/hero.webp" alt="" />
         <div className="a-login__shade" />
-        <img className="a-login__logo" src="/images/logo-light.png" alt="Privé by Peaktour" />
+        <img className="a-login__logo" src="/images/logo-light.png" alt="Privé DMC" />
         <p>Azı çoxdur.</p>
       </aside>
       <main className="a-login__main">

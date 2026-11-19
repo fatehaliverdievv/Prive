@@ -15,7 +15,7 @@ export default function Footer() {
     <footer className="ftr">
       <div className="container ftr__top">
         <div>
-          <img className="ftr__logo" src="/images/logo-light.png" alt="Privé by Peaktour" />
+          <img className="ftr__logo" src="/images/logo-dark.png" alt="Privé DMC" />
           <p className="eyebrow">{t('footer.tag')}</p>
           <a className="ftr__mail" href={`mailto:${s.email}`}>{s.email}</a>
           <a className="ftr__tel" href={`tel:${digits(s.phone)}`}>{s.phone}</a>
@@ -31,14 +31,14 @@ export default function Footer() {
         </ul>
       </div>
       <motion.div className="ftr__big" aria-hidden initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} transition={{ staggerChildren: 0.06 }}>
-        {'PRIVE TOUR'.split('').map((c, i) => (
+        {'PRIVÉ DMC'.split('').map((c, i) => (
           <motion.span key={i} variants={{ hidden: { rotateX: -95, y: '40%', opacity: 0 }, show: { rotateX: 0, y: 0, opacity: 1 } }}
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}>{c === ' ' ? '\u00A0' : c}</motion.span>
         ))}
       </motion.div>
       <div className="container ftr__bottom">
-        <span>© {new Date().getFullYear()} Peak Tour. {t('footer.rights')}</span>
-        <span>peaktour.az</span>
+        <span>© {new Date().getFullYear()} Privé DMC. {t('footer.rights')}</span>
+        <span>privedmc.az</span>
       </div>
     </footer>
   );
